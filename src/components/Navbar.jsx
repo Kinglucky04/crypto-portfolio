@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { CoinContext } from '../context/CoinContext'
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [open, setOpen] = useState(false)
@@ -25,15 +26,18 @@ function Navbar() {
     <div>
       <div className='flex items-center justify-between px-4 sm:px-8 lg:px-12 py-4'>
         
-        <h1 className='uppercase font-bold text-green-400 text-xl sm:text-2xl lg:text-3xl'>
-          Blockforge
-        </h1>
+        
+          <h1 className='uppercase font-bold text-green-400 text-xl sm:text-2xl lg:text-3xl'>
+            <Link to='/'>
+                Blockforge
+            </Link>
+          </h1>
+      
 
         {/* Desktop Nav */}
         <ul className='hidden md:flex items-center gap-6 lg:gap-8 text-base lg:text-lg font-medium cursor-pointer'>
-          <li className='hover:text-gray-400'>Home</li>
-          <li className='hover:text-gray-400'>Portfolio</li>
-          <li className='hover:text-gray-400'>Features</li>
+          <li className='hover:text-gray-400'><Link to='/'>Home</Link></li>
+          <li className='hover:text-gray-400'><Link to='/portfolio'>Portfolio</Link></li>
           <li className='hover:text-gray-400'>Blog</li>
         </ul>
 
@@ -66,9 +70,8 @@ function Navbar() {
       <div className={`md:hidden overflow-hidden transition-all duration-300 ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
         <div className='px-6 pb-6'>
           <ul className='flex flex-col gap-4 text-base font-medium'>
-            <li className='hover:text-gray-400'>Home</li>
-            <li className='hover:text-gray-400'>Portfolio</li>
-            <li className='hover:text-gray-400'>Features</li>
+            <li className='hover:text-gray-400'><Link to='/'>Home</Link></li>
+            <li className='hover:text-gray-400'><Link to='/portfolio'>Portfolio</Link></li>
             <li className='hover:text-gray-400'>Blog</li>
           </ul>
 

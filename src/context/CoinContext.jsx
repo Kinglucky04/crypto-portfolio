@@ -27,6 +27,7 @@ const CoinContextProvider = (props) => {
     useEffect(() => {
         fetchAllCoins();
     }, [currency]);
+    
 
     // DATA YOU SHARE TO ALL COMPONENTS
     const contextValue = {

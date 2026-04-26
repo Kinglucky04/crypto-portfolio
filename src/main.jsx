@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import CoinContextProvider from './context/CoinContext.jsx'
+import { PortfolioProvider } from './context/PortfolioContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <CoinContextProvider>
-        <App />
+          <PortfolioProvider>
+            <App />
+        </PortfolioProvider>
       </CoinContextProvider>
     </BrowserRouter>
   </StrictMode>,
