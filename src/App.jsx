@@ -5,6 +5,7 @@ import Home from './pages/home/Home'
 import Coin from './pages/coin/Coin'
 import Footer from './components/Footer'
 import Portfolio from './pages/Portfolio'
+import { SignIn, SignUp, SignedIn,  SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
 
 function App() {
   return (
@@ -14,7 +15,29 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/coin/:coinId' element={<Coin />} />
-                <Route path='/portfolio' element={<Portfolio />} />
+               <Route
+                      path="/portfolio"
+                      element={
+                        <>
+                          <SignedIn>
+                            <Portfolio />
+                          </SignedIn>
+
+                          <SignedOut>
+                            <RedirectToSignIn />
+                          </SignedOut>
+                        </>
+                      }
+                    />
+              <Route
+                path="/sign-in"
+                element={<SignIn fallbackRedirectUrl="/" />}
+              />
+
+              <Route
+                path="/sign-up"
+                element={<SignUp fallbackRedirectUrl="/" />}
+              />
             </Routes>
             <Footer />
     </div>

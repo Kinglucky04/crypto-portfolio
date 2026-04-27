@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { CoinContext } from '../context/CoinContext'
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton } from '@clerk/clerk-react'
 
 function Navbar() {
   const [open, setOpen] = useState(false)
@@ -52,9 +53,17 @@ function Navbar() {
             <option value="ngn">Naira</option>
           </select>
 
-          <button className='px-3 py-1.5 lg:px-4 lg:py-2 rounded-xl bg-green-400 border border-green-400 hover:bg-green-500 text-sm cursor-pointer'>
-            Sign Up
-          </button>
+          <SignedOut>
+          <SignUpButton mode="redirect">
+            <button className='px-3 py-1.5 lg:px-4 lg:py-2 rounded-xl bg-green-400 border border-green-400 hover:bg-green-500 text-sm cursor-pointer'>
+              Sign Up
+            </button>
+          </SignUpButton>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
         </div>
 
         {/* Hamburger */}
@@ -85,9 +94,17 @@ function Navbar() {
               <option value="ngn">Naira</option>
             </select>
 
-            <button className='px-4 py-2 rounded-xl bg-green-400 border border-green-400 hover:bg-green-500 text-sm cursor-pointer'>
-              Sign Up
-            </button>
+            <SignedOut>
+            <SignInButton>
+              <button className='px-3 py-1.5 lg:px-4 lg:py-2 rounded-xl bg-green-400'>
+                Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           </div>
         </div>
       </div>

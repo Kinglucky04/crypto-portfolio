@@ -1,11 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useUser } from "@clerk/clerk-react";
 
 export const PortfolioContext = createContext();
 
 export const PortfolioProvider = ({ children }) => {
-  const [portfolio, setPortfolio] = useState([]);
+
+    const { user, isLoaded } = useUser();
+      const [portfolio, setPortfolio] = useState(() => {
+      const saved = localStorage.getItem("portfolio");
+      return saved ? JSON.parse(saved) : [];
+    });
+
+    useEffect(() => {
+      localStorage.setItem("portfolio", JSON.stringify(portfolio));
+    }, [portfolio]);
+
+    if (!isLoaded) return null;
 
   const addCoin = (coin, quantity) => {
+
+     if (!user) return;
+
     setPortfolio(prev => {
       const exists = prev.find(item => item.id === coin.id);
 
@@ -16,13 +31,16 @@ export const PortfolioProvider = ({ children }) => {
             : item
         );
       }
-
       return [...prev, { ...coin, quantity }];
     });
   };
 
+      const removeCoin = (id) => {
+        setPortfolio(prev => prev.filter(item => item.id !== id));
+      };
+
   return (
-    <PortfolioContext.Provider value={{ portfolio, addCoin }}>
+    <PortfolioContext.Provider value={{ portfolio, addCoin , removeCoin}}>
       {children}
     </PortfolioContext.Provider>
   );

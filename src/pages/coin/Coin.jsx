@@ -3,6 +3,8 @@ import { PortfolioContext } from '../../context/PortfolioContext'
 import { CoinContext } from '../../context/CoinContext'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { useParams } from 'react-router-dom'
+import { useUser } from '@clerk/clerk-react'
+
 
 function Coin() {
   const { coinId } = useParams()
@@ -11,6 +13,7 @@ function Coin() {
   const { addCoin } = useContext(PortfolioContext)
   const [qty, setQty] = useState(1)
   const { currency } = useContext(CoinContext)
+  const { isSignedIn } = useUser()
 
   const chartData = historicalData?.map(item => ({
   time: new Date(item[0]).toLocaleDateString(),
@@ -80,12 +83,13 @@ function Coin() {
           className="text-black px-2 py-1 w-20"
         />
 
-        <button
-          onClick={() => coinData && addCoin(coinData, qty)}
-          className="bg-green-400 px-4 py-2 rounded"
-        >
-          Add
-        </button>
+       <button
+            onClick={() => addCoin(coinData, qty)}
+            disabled={!coinData || !isSignedIn}
+            className="bg-green-400 px-4 py-2 rounded disabled:opacity-50"
+          >
+            {isSignedIn ? "Add" : "Sign in to add"}
+          </button>
       </div>
     </div>
   )

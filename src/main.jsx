@@ -5,15 +5,20 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import CoinContextProvider from './context/CoinContext.jsx'
 import { PortfolioProvider } from './context/PortfolioContext.jsx'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <CoinContextProvider>
-          <PortfolioProvider>
-            <App />
-        </PortfolioProvider>
-      </CoinContextProvider>
-    </BrowserRouter>
+   <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+  <BrowserRouter>
+    <CoinContextProvider>
+      <PortfolioProvider>
+        <App />
+      </PortfolioProvider>
+    </CoinContextProvider>
+  </BrowserRouter>
+</ClerkProvider>
   </StrictMode>,
 )
