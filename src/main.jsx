@@ -7,11 +7,11 @@ import CoinContextProvider from './context/CoinContext.jsx'
 import { PortfolioProvider } from './context/PortfolioContext.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
 
-
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-   <ClerkProvider publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}>
+   <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
   <BrowserRouter>
     <CoinContextProvider>
       <PortfolioProvider>
